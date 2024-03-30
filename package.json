@@ -1,0 +1,29 @@
+{
+  "name": "scanNpay-server",
+  "version": "1.0.0",
+  "description": "Express-Powered server for ScanNpay.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./index.js",
+    "dev": "nodemon ./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shubham4f/scanNpay-server.git"
+  },
+  "author": "shubham4f",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Shubham4f/scanNpay-server/issues"
+  },
+  "homepage": "https://github.com/Shubham4f/scanNpay-server#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.2.3"
+  }
+}
