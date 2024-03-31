@@ -3,8 +3,8 @@ import OTP from "../models/otp.model.js";
 import { errorHandler } from "../utils/error.js";
 
 export const verifyOTP = async (req, res, next) => {
-  const { phoneNumber, otp } = req.body;
   try {
+    const { phoneNumber, otp } = req.body;
     const dbOtp = await OTP.findOne({ phoneNumber });
     if (!dbOtp) return next(errorHandler(410, "Generate a new OTP."));
     if (dbOtp.expiry > new Date()) {

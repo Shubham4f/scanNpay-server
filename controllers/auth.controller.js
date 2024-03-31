@@ -46,6 +46,7 @@ export const signUp = async (req, res, next) => {
       phoneNumber,
       firstName,
       lastName,
+      merchant: validUser.merchant,
       refreshToken,
       accessToken,
     });
@@ -76,6 +77,7 @@ export const signIn = async (req, res, next) => {
       phoneNumber,
       firstName: validUser.firstName,
       lastName: validUser.lastName,
+      merchant: validUser.merchant,
       refreshToken,
       accessToken,
     });

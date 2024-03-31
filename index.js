@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import helmet from "helmet";
 import mongoSanitize from "express-mongo-sanitize";
 import { errorMiddleware } from "./middlewares/error.js";
-import { authRouter } from "./routes/index.js";
+import { authRouter, userRouter } from "./routes/index.js";
 
 dotenv.config();
 
@@ -22,6 +22,7 @@ app.use(helmet());
 app.use(mongoSanitize());
 
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/user", userRouter);
 
 app.use(errorMiddleware);
 
