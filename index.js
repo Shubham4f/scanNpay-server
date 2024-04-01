@@ -4,7 +4,8 @@ import dotenv from "dotenv";
 import helmet from "helmet";
 import mongoSanitize from "express-mongo-sanitize";
 import { errorMiddleware } from "./middlewares/error.js";
-import { authRouter, userRouter } from "./routes/index.js";
+import { authRouter, userRouter, transactionRouter } from "./routes/index.js";
+import cronJobs from "./utils/crons.js";
 
 dotenv.config();
 
@@ -23,8 +24,11 @@ app.use(mongoSanitize());
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/user", userRouter);
+app.use("/api/v1/transaction", transactionRouter);
 
 app.use(errorMiddleware);
+
+cronJobs();
 
 app.listen(port, () => {
   console.log(`Listening on port ${port} => http://localhost:${port}/`);

@@ -22,6 +22,7 @@ export const details = async (req, res, next) => {
     );
     if (!validUser) return next(errorHandler(404, "User Not Found."));
     return res.status(200).json({
+      receiver_id: validUser._id,
       phoneNumber: validUser.phoneNumber,
       firstName: validUser.firstName,
       lastName: validUser.lastName,

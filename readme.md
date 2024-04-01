@@ -38,9 +38,11 @@ Before running the project, make sure you have the following installed:
 
 4. **Create a .env file based on demo.env:**
    ```env
-   DATABASE=your_database_connection_string
-   PORT=your_server_port
-   JWT_SECRET=your_jwt_secret_key
+   DATABASE = your_database_connection_string
+   PORT = your_server_port
+   JWT_SECRET = your_jwt_secret_key
+   RAZORPAY_API_KEY = your_razorpay_api_key
+   RAZORPAY_API_SECRET = your_razorpay_api_secret
    ```
 5. **Navigate to the project folder in the terminal and execute the following command to run the application:**
 
