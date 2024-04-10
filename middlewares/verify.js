@@ -20,7 +20,7 @@ export const verifyOTP = async (req, res, next) => {
             { $inc: { attempts: -1 } }
           );
         }
-        return next(errorHandler(401, "Invalid OTP."));
+        return next(errorHandler(400, "Invalid OTP."));
       }
     } else {
       await OTP.findOneAndDelete({ phoneNumber });
