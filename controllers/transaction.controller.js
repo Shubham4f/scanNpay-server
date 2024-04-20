@@ -77,16 +77,21 @@ export const verify = async (req, res, next) => {
         $inc: { balance: validTransaction.amount },
         options,
       });
+      const populatedTransaction = await Transaction.findById(
+        validTransaction._id,
+        "-razorpayPaymentId -razorPaysignature"
+      )
+        .populate({
+          path: "senderRef",
+          select: "phoneNumber firstName lastName merchant",
+        })
+        .populate({
+          path: "receiverRef",
+          select: "phoneNumber firstName lastName merchant",
+        });
       await session.commitTransaction();
       await session.endSession();
-      return res.status(200).json({
-        _id: validTransaction._id,
-        type: validTransaction.type,
-        amount: validTransaction.amount,
-        status: validTransaction.status,
-        razorpayOrderId: validTransaction.razorpayOrderId,
-        createdAt: validTransaction.createdAt,
-      });
+      return res.status(200).json(populatedTransaction);
     } else {
       await session.abortTransaction();
       await session.endSession();
@@ -149,15 +154,20 @@ export const transfer = async (req, res, next) => {
       status: "completed",
     });
     const validTransaction = await newTransaction.save();
+    const populatedTransaction = await Transaction.findById(
+      validTransaction._id
+    )
+      .populate({
+        path: "senderRef",
+        select: "phoneNumber firstName lastName merchant",
+      })
+      .populate({
+        path: "receiverRef",
+        select: "phoneNumber firstName lastName merchant",
+      });
     await session.commitTransaction();
     await session.endSession();
-    return res.status(201).json({
-      _id: validTransaction._id,
-      type: validTransaction.type,
-      amount: validTransaction.amount,
-      status: validTransaction.status,
-      createdAt: validTransaction.createdAt,
-    });
+    return res.status(201).json(populatedTransaction);
   } catch (error) {
     await session.abortTransaction();
     await session.endSession();
@@ -211,18 +221,20 @@ export const withdraw = async (req, res, next) => {
       ifsc,
     });
     const validTransaction = await newTransaction.save();
+    const populatedTransaction = await Transaction.findById(
+      validTransaction._id
+    )
+      .populate({
+        path: "senderRef",
+        select: "phoneNumber firstName lastName merchant",
+      })
+      .populate({
+        path: "receiverRef",
+        select: "phoneNumber firstName lastName merchant",
+      });
     await session.commitTransaction();
     await session.endSession();
-    return res.status(201).json({
-      _id: validTransaction._id,
-      type: validTransaction.type,
-      amount: validTransaction.amount,
-      status: validTransaction.status,
-      beneficiary,
-      accountNumber,
-      ifsc,
-      createdAt: validTransaction.createdAt,
-    });
+    return res.status(201).json(populatedTransaction);
   } catch (error) {
     await session.abortTransaction();
     await session.endSession();
